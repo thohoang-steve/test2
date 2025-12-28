@@ -45,12 +45,12 @@ def clean_html(soup):
     return soup
 
 # --- GIAO DIỆN ---
-st.title("🔎 SEO Content Researcher (Fix Lỗi)")
+st.title("SEO Content Researcher")
 
 if not st.session_state['is_analyzed']:
     with st.container():
-        urls_input = st.text_area("👉 Dán danh sách URL (Mỗi dòng 1 link):", height=200)
-        if st.button("🚀 BẮT ĐẦU PHÂN TÍCH", type="primary"):
+        urls_input = st.text_area("Dán danh sách URL (Mỗi dòng 1 link):", height=200)
+        if st.button("BẮT ĐẦU PHÂN TÍCH", type="primary"):
             if not urls_input.strip():
                 st.warning("Chưa nhập URL!")
             else:
@@ -133,17 +133,17 @@ if not st.session_state['is_analyzed']:
 else:
     # --- KẾT QUẢ ---
     res = st.session_state['results']
-    if st.button("⬅️ QUAY LẠI"):
+    if st.button("QUAY LẠI"):
         st.session_state['results'] = None
         st.session_state['is_analyzed'] = False
         st.rerun()
 
     c1, c2 = st.columns(2)
     with c1: 
-        st.subheader("💡 Outline Đề Xuất")
+        st.subheader("Outline Đề Xuất")
         st.text_area("Copy:", value=res['rec_text'], height=400)
     with c2:
-        st.subheader("📝 Dữ liệu chi tiết")
+        st.subheader("Dữ liệu chi tiết")
         st.text_area("Raw Data:", value=res['display_text'], height=400)
 
     # Xuất file
@@ -165,7 +165,7 @@ else:
     buf_doc = BytesIO()
     doc.save(buf_doc)
     buf_doc.seek(0)
-    with b1: st.download_button("📄 Tải Word (.docx)", buf_doc, "SEO_Report.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", type="primary")
+    with b1: st.download_button("Tải Word (.docx)", buf_doc, "SEO_Report.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", type="primary")
 
     # Excel
     buf_xls = BytesIO()
@@ -175,4 +175,5 @@ else:
         df1.to_excel(writer, sheet_name='Outline Research', index=False)
         pd.DataFrame(res['rec_list'], columns=['Recommended H2']).to_excel(writer, sheet_name='Outline Recommend', index=False)
     buf_xls.seek(0)
-    with b2: st.download_button("📊 Tải Excel (2 Sheets)", buf_xls, "SEO_Data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type="primary")
+    with b2: st.download_button("Tải Excel (2 Sheets)", buf_xls, "SEO_Data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type="primary")
+
