@@ -13,7 +13,7 @@ from docx import Document
 
 # --- CẤU HÌNH TRANG ---
 st.set_page_config(page_title="Outline Researcher", layout="wide")
-st.markdown("""<style>.main {background-color: #f4f6f9;} h1 {color: #FC6E20;} .stButton>button {width: 100%; border-radius: 5px; font-weight: bold;}</style>""", unsafe_allow_html=True)
+st.markdown("""<style>.main {background-color: #f4f6f9;} h2 {color: #FC6E20;} .stButton>button {width: 100%; border-radius: 5px; font-weight: bold;}</style>""", unsafe_allow_html=True)
 
 # --- SESSION STATE ---
 if 'results' not in st.session_state: st.session_state['results'] = None
@@ -45,7 +45,7 @@ def clean_html(soup):
     return soup
 
 # --- GIAO DIỆN ---
-st.title("Outline Researcher")
+st.header("Outline Researcher")
 
 if not st.session_state['is_analyzed']:
     with st.container():
@@ -153,7 +153,7 @@ else:
     # Word
     doc = Document()
     doc.add_heading('SEO REPORT', 0)
-    doc.add_heading('OUTLINE RECOMMEND', 1)
+    doc.add_heading('OUTLINE RECOMMEND', 2)
     for i in res['rec_list']: doc.add_paragraph(f"- {i}", style='List Bullet')
     doc.add_heading('RAW DATA', 1)
     for d in res['all_data']:
@@ -176,6 +176,7 @@ else:
         pd.DataFrame(res['rec_list'], columns=['Recommended H2']).to_excel(writer, sheet_name='Outline Recommend', index=False)
     buf_xls.seek(0)
     with b2: st.download_button("Tải Excel", buf_xls, "SEO_Data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type="primary")
+
 
 
 
