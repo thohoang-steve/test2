@@ -45,7 +45,7 @@ def clean_html(soup):
     return soup
 
 # --- GIAO DIỆN ---
-st.title("Outline Researcher - Brainhub")
+st.title("Outline Researcher")
 
 if not st.session_state['is_analyzed']:
     with st.container():
@@ -176,4 +176,5 @@ else:
         pd.DataFrame(res['rec_list'], columns=['Recommended H2']).to_excel(writer, sheet_name='Outline Recommend', index=False)
     buf_xls.seek(0)
     with b2: st.download_button("Tải Excel", buf_xls, "SEO_Data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type="primary")
+
 
